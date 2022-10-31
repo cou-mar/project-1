@@ -2,6 +2,7 @@ landing page
     - instructions
     - start button
     - more resources (link to local county's rules)
+        - https://www.miamidade.gov/global/service.page?Mduid_service=ser1494966732017925
 
 sound effects when wrong 
 explanation for why wrong
@@ -16,10 +17,22 @@ potential names
     - impactful
     - waste less
 
-if finish game with time, create second bin of different color for the diff types of recyclables (plastic vs paper)
+if finish game with extra time
+    - create second bin of different color for the diff types of recyclables (plastic vs paper)
+    - make objects fall faster over time
 
 DAILY GOALS
+    - 10/31/22
+        - bin movement
+        - attach bin photo
+    - 11/1/22
+        - 
 
-10/31/22
-    - bin movement
-    - attach photo to bin
+OUTLINE
+    - make class
+        - for bin
+        - extend to falling items
+    - bind keys for movement
+    - bounce check for left and right borders
+    - falling objects
+    - images for falling objects

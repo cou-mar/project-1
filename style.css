@@ -1,5 +1,15 @@
-body {
+canvas {
     background-image: url("./media/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+body {
+    text-align: center;
+}
+
+h1 {
+    margin: 100px 0 0 0;
+    font-style: oblique;
+    color: rgb(136, 211, 243);
 }
