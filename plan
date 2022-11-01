@@ -1,38 +1,34 @@
-landing page
-    - instructions
-    - start button
-    - more resources (link to local county's rules)
-        - https://www.miamidade.gov/global/service.page?Mduid_service=ser1494966732017925
-
-sound effects when wrong 
-explanation for why wrong
-
-background music
-
-lose game pop up
-
-high score display
-
 potential names
     - impactful
     - waste less
 
-if finish game with extra time
-    - create second bin of different color for the diff types of recyclables (plastic vs paper)
-    - make objects fall faster over time
-
 DAILY GOALS
-    - 10/31/22
+    - 10/31/22 mon
+        - make class
+            - for bin
+            - extend to falling items
         - bin movement
+        - bind keys for movement
         - attach bin photo
-    - 11/1/22
-        - 
-
-OUTLINE
-    - make class
-        - for bin
-        - extend to falling items
-    - bind keys for movement
-    - bounce check for left and right borders
-    - falling objects
-    - images for falling objects
+        - bounce check for left/right borders
+        - find images for falling items
+    - 11/1 tues
+        - extend class to falling items or create new class
+        - animation loop
+        - array
+        - add randomized images at different speeds
+        - interval
+        - collision
+    - 11/2 weds
+        - score counter
+        - high score list
+        - game over pop up
+        - landing page
+        - start button
+        - instructions
+        - resources (https://www.miamidade.gov/global/service.page?Mduid_service=ser1494966732017925)
+    - 11/3 thurs
+        - sound effects
+            - background music
+            - sound when wrong
+        - make powerpoint

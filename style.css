@@ -8,6 +8,15 @@ body {
     text-align: center;
 }
 
+body button {
+    font-size: 30px;
+    background-color: rgb(136, 211, 243);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
 h1 {
     margin: 100px 0 0 0;
     font-style: oblique;
