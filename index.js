@@ -1,12 +1,15 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
+// let game;
+
 class Player {
     constructor(x, y, width, height){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.vx = 0
 
         const playerImg = new Image();
         playerImg.addEventListener('load', () => {
@@ -17,18 +20,46 @@ class Player {
     }
 
     moveLeft(){
-        this.x -= 10;
-        if (this.x < 0){
-            this.x = 0;
+        if (this.vx <= -4){
+            this.vx = -4
         }
+        this.vx -= 1;
+        // if (this.x == 0){
+        //     this.x = 100
+        //     this.vx = 0;
+        // }
     }
     moveRight(){
-        this.x += 10;
-        if (this.x > canvas.width - binMaxWidth){
-            this.x = canvas.width - binMaxWidth;
+        if (this.vx >= 4) {
+            this.vx = 4
         }
+        this.vx += 1;
+        // if (this.x > canvas.width - binMaxWidth){
+        //     this.vx = -(this.vx);
+        // }
     }
+    updatePosition(){
+        if (this.x <= 0) {
+            this.x = 5;
+            this.vx = 0
+        } 
+        if (this.x + this.width >= canvas.width) {
+            this.x = canvas.width - this.width - 5
+            this.vx = 0
+        }
+        
+        
+        
+        else {
+            
+            this.x += this.vx
+        }
+        // if (this.x = 0){
+        //     this.x = 100
+        //     this.vx = 0;
+        // } 
 
+    }
     draw(){
     ctx.drawImage(this.playerImg, this.x, this.y, this.width, this.height)
     }
@@ -116,25 +147,52 @@ styrofoam.src = "./media/styrofoam.png"
 styrofoam.arrId = "styrofoam"
 trashArr.push(styrofoam);
 
-console.log(trashArr, "Trash Array")
+// console.log(trashArr, "Trash Array")
 
 class FallingItems {
     constructor(){
         this.x = Math.random() * 1051;
         this.y = 0;
-        // this.velocity = Math.ceiling(Math.random() * 10);
-        this.width = 40;
-        this.height = 40;
+        this.velocity = Math.ceil(Math.random() * 3);
+        this.width = 60;
+        this.height = 50;
         this.trash = trashArr[Math.floor(Math.random() * trashArr.length)]
-    }
-};
 
-let itemsArray = [];
+    }
+    
+    moveDown(){
+        this.y += this.velocity;
+        // if (this.y > binMaxHeight){
+        //     ctx.clearRect(0, 0, canvas.width, canvas.height)
+        // }
+    }
+
+    collisionCheck(obstacle) {
+        if (
+          this.x < obstacle.x + obstacle.width &&
+          this.x + this.width > obstacle.x &&
+          this.y < obstacle.y + obstacle.height &&
+          this.height + this.y > obstacle.y
+        ) {
+          // Collision detected!
+          console.log("detected!");
+          return true;
+        } else {
+          // No collision
+          return false;
+        }
+    }
+    draw(){
+        ctx.drawImage(this.trash, this.x, this.y, this.width, this.height)
+    }
+}
+
+let itemsArr = [];
 
 let addItems = () => {
-    console.log("adding")
-    itemsArray.push(new FallingItems())
-    console.log(itemsArray, "Items Array")
+    // console.log("adding")
+    itemsArr.push(new FallingItems())
+    // console.log(itemsArr, "Items Array")
 };
 
 let binMaxWidth = 110;
@@ -144,7 +202,6 @@ let bin = new Player(480, 380, binMaxWidth, binMaxHeight);
 
 function clearCanvas(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    bin.draw();
 }
 
 window.addEventListener("keydown", function(event){
@@ -156,28 +213,40 @@ window.addEventListener("keydown", function(event){
             bin.moveRight();
             break;
     }
-    clearCanvas()
 });
 
 let frameCount = 0;
 let fallingArr = [];
 
 const animationLoop = () => {
-    
+    // game = window.requestAnimationFrame(animationLoop, canvas)
     frameCount++;
+    
+    clearCanvas();
 
-    // if (frameCount % 120 == 0){
-    //     let item1 = new FallingItems(0, canvas.height, 40, 40);
-    //     let = item2 = new FallingItems(0, canvas.height, 40, 40);
+    if (frameCount % 60 == 0){
+        // 
+        addItems();
+    }
 
-    //     fallingArr.push(item1);
-    //     fallingArr.push(item2);
-    // }
+    for (let i = 0; i < itemsArr.length; i++){
+        // drop trash from sky
+        itemsArr[i].moveDown();
+        if(itemsArr[i].collisionCheck(bin)) {
+            itemsArr.splice(i, 1)
+        }
 
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);    
+        // check if recyclable collides with bin: +5 points
 
-    // item1.drawImage();
-    // item2.drawImage();
+
+        // check if trash collides with bin: -5 points
+
+
+        itemsArr[i].draw();
+    }
+    bin.draw();
+    bin.updatePosition()
+
 }
 
 /*  set interval on addItems
@@ -186,14 +255,15 @@ const animationLoop = () => {
 
 */
 
-let int;
+// let int;
 
 window.onload = () => {
     document.querySelector("#start").addEventListener('click', startGame)
 
     function startGame(){
-        setInterval(animationLoop, 16);
-        int = setInterval(addItems, 1000)
+        // animationLoop()
+        setInterval(animationLoop, 18);
+        // int = setInterval(addItems, 1000)
         console.log("Started")
     }
 }
