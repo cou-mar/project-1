@@ -19,12 +19,14 @@ DAILY GOALS
         - add randomized images at different speeds
         - interval
         - collision
-    - 11/2 weds
-        - score counter
-        - high score list
-        - game over pop up
-        - landing page
         - start button
+        - score counter
+    - 11/2 weds
+        - win/lose pop ups
+        - separate into 2 arrays: trash vs recyclable
+        - 5 wrong - lose
+        - 5 right - win
+        - landing page
         - instructions
         - resources (https://www.miamidade.gov/global/service.page?Mduid_service=ser1494966732017925)
     - 11/3 thurs

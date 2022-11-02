@@ -3,6 +3,9 @@ const ctx = canvas.getContext('2d');
 
 // let game;
 
+let scoreDisplay = document.querySelector('#score');
+let scoreValue = 0;
+
 class Player {
     constructor(x, y, width, height){
         this.x = x;
@@ -18,7 +21,6 @@ class Player {
         });
         playerImg.src = './media/bin.png'
     }
-
     moveLeft(){
         if (this.vx <= -4){
             this.vx = -4
@@ -47,18 +49,13 @@ class Player {
             this.x = canvas.width - this.width - 5
             this.vx = 0
         }
-        
-        
-        
-        else {
-            
+        else {   
             this.x += this.vx
         }
         // if (this.x = 0){
         //     this.x = 100
         //     this.vx = 0;
         // } 
-
     }
     draw(){
     ctx.drawImage(this.playerImg, this.x, this.y, this.width, this.height)
@@ -154,19 +151,17 @@ class FallingItems {
         this.x = Math.random() * 1051;
         this.y = 0;
         this.velocity = Math.ceil(Math.random() * 3);
-        this.width = 60;
-        this.height = 50;
+        this.width = 100;
+        this.height = 90;
         this.trash = trashArr[Math.floor(Math.random() * trashArr.length)]
 
     }
-    
     moveDown(){
         this.y += this.velocity;
         // if (this.y > binMaxHeight){
         //     ctx.clearRect(0, 0, canvas.width, canvas.height)
         // }
     }
-
     collisionCheck(obstacle) {
         if (
           this.x < obstacle.x + obstacle.width &&
@@ -216,7 +211,6 @@ window.addEventListener("keydown", function(event){
 });
 
 let frameCount = 0;
-let fallingArr = [];
 
 const animationLoop = () => {
     // game = window.requestAnimationFrame(animationLoop, canvas)
@@ -227,13 +221,17 @@ const animationLoop = () => {
     if (frameCount % 60 == 0){
         // 
         addItems();
-    }
 
+        //bads drop on odd numbers
+        //else if goods drop on even numbers
+    }
     for (let i = 0; i < itemsArr.length; i++){
         // drop trash from sky
         itemsArr[i].moveDown();
         if(itemsArr[i].collisionCheck(bin)) {
             itemsArr.splice(i, 1)
+            scoreValue++;
+            scoreDisplay.innerHTML = scoreValue;
         }
 
         // check if recyclable collides with bin: +5 points
@@ -246,14 +244,7 @@ const animationLoop = () => {
     }
     bin.draw();
     bin.updatePosition()
-
 }
-
-/*  set interval on addItems
-    on click start.. begin calling images+falling
-    request animation frame
-
-*/
 
 // let int;
 
