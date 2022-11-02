@@ -6,8 +6,8 @@ const ctx = canvas.getContext('2d');
 let scoreDisplay = document.querySelector('#score');
 let scoreValue = 0;
 
-let winElement = document.querySelector('#winner');
-let loseElement = document.querySelector('#loser');
+let winOrLoseElem = document.querySelector('#winOrLoseId');
+let winOrLose = "";
 
 class Player {
     constructor(x, y, width, height){
@@ -71,7 +71,7 @@ let banana = new Image();
 banana.src = "./media/banana peel.png"
 banana.arrId = "banana"
 banana.recyclable = false;
-banana.points = -5;
+banana.points = -2;
 trashArr.push(banana);
 
 let can = new Image();
@@ -99,14 +99,14 @@ let chineseTakeout = new Image();
 chineseTakeout.src = "./media/chinese takeout.png"
 chineseTakeout.arrId = "chineseTakeout"
 chineseTakeout.recyclable = false;
-chineseTakeout.points = -5;
+chineseTakeout.points = -2;
 trashArr.push(chineseTakeout);
 
 let coffeeCup = new Image();
 coffeeCup.src = "./media/coffee cup.png"
 coffeeCup.arrId = "coffeeCup"
 coffeeCup.recyclable = false;
-coffeeCup.points = -5;
+coffeeCup.points = -2;
 trashArr.push(coffeeCup);
 
 let cupHolder = new Image();
@@ -134,14 +134,14 @@ let pizzaBox = new Image();
 pizzaBox.src = "./media/pizza box.png"
 pizzaBox.arrId = "pizzaBox"
 pizzaBox.recyclable = false;
-pizzaBox.points = -5;
+pizzaBox.points = -2;
 trashArr.push(pizzaBox);
 
 let plasticBag = new Image();
 plasticBag.src = "./media/plastic bag.png"
 plasticBag.arrId = "plasticBag"
 plasticBag.recyclable = false;
-plasticBag.points = -5;
+plasticBag.points = -2;
 trashArr.push(plasticBag);
 
 let plasticBottle = new Image();
@@ -154,29 +154,29 @@ trashArr.push(plasticBottle);
 let plasticTakeout = new Image();
 plasticTakeout.src = "./media/plastic takeout.png"
 plasticTakeout.arrId = "plasticTakeout"
-plasticTakeout.recyclable = false;
-plasticTakeout.points = -5;
+plasticTakeout.recyclable = true;
+plasticTakeout.points = 1;
 trashArr.push(plasticTakeout);
 
 let plasticUtensils = new Image();
 plasticUtensils.src = "./media/plastic utensils.png"
 plasticUtensils.arrId = "plasticUtensils"
 plasticUtensils.recyclable = false;
-plasticUtensils.points = -5;
+plasticUtensils.points = -2;
 trashArr.push(plasticUtensils);
 
 let styrofoamTakeout = new Image();
 styrofoamTakeout.src = "./media/styrofoam takeout.png"
 styrofoamTakeout.arrId = "styrofoamTakeout"
 styrofoamTakeout.recyclable = false;
-styrofoamTakeout.points = -5;
+styrofoamTakeout.points = -2;
 trashArr.push(styrofoamTakeout);
 
 let styrofoam = new Image();
 styrofoam.src = "./media/styrofoam.png"
 styrofoam.arrId = "styrofoam"
 styrofoam.recyclable = false;
-styrofoam.points = -5;
+styrofoam.points = -2;
 trashArr.push(styrofoam);
 
 // console.log(trashArr, 'Trash Array')
@@ -261,19 +261,33 @@ const animationLoop = () => {
 
     }
     for (let i = 0; i < itemsArr.length; i++){
-        // drop trash from sky
-        itemsArr[i].moveDown();
-        if(itemsArr[i].collisionCheck(bin)) {
+       
+        itemsArr[i].moveDown(); // drop trash from sky
+        
+        if(itemsArr[i].collisionCheck(bin)) { 
+            
+            if(itemsArr[i].recyclable){
+                scoreValue += 1;
+                scoreDisplay.innerHTML = scoreValue
+                console.log('check')
+            }   else {
+                scoreValue -= 2;
+                scoreDisplay.innerHTML = scoreValue
+            }
+
             itemsArr.splice(i, 1)
-            scoreValue++;
-            scoreDisplay.innerHTML = scoreValue;
+            i--
+
+            if(scoreValue === 1){
+                winOrLose = 'You Win!'
+                winOrLoseElem.innerHTML = winOrLose
+                canvas.style.display = 'none'
+            } else if(scoreValue === -2){
+                winOrLose = 'Game Over'
+                winOrLoseElem.innerHTML = winOrLose
+                canvas.style.display = 'none'
+            }
         }
-
-        // check if recyclable collides with bin: +5 points
-
-
-        // check if trash collides with bin: -5 points
-
 
         itemsArr[i].draw();
     }
@@ -283,6 +297,8 @@ const animationLoop = () => {
 
 // let int;
 
+let soundtrack = new Audio ('./media/Game Soundtrack.mp3')
+
 window.onload = () => {
     document.querySelector("#start").addEventListener('click', startGame)
 
@@ -290,6 +306,7 @@ window.onload = () => {
         // animationLoop()
         setInterval(animationLoop, 18);
         // int = setInterval(addItems, 1000)
-        console.log("Started")
+        // console.log("Started")
+        soundtrack.play();
     }
 }

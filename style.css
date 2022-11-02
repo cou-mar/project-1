@@ -24,7 +24,7 @@ h1 {
     color: rgb(136, 211, 243);
 }
 
-#winner {
+/* #winner {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -43,6 +43,11 @@ h1 {
     display: block;
     font-size: 2rem;
     text-shadow: 5px 5px 5px rgb(146, 157, 151);
+} */
+
+#winOrLoseId {
+    font-size: 2rem;
+    color: rgb(1,113,187);
 }
 
 .score {
