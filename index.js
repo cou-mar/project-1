@@ -18,11 +18,12 @@ class Player {
         this.vx = 0
 
         const playerImg = new Image();
-        playerImg.addEventListener('load', () => {
+        // playerImg.addEventListener('load', () => {
             this.playerImg = playerImg;
-            this.draw();
-        });
+        //     this.draw();
+        // });
         playerImg.src = './media/bin.png'
+        // this.draw()
     }
     moveLeft(){
         if (this.vx <= -4){
@@ -248,8 +249,10 @@ window.addEventListener("keydown", function(event){
 });
 
 let frameCount = 0;
+let int;
 
 const animationLoop = () => {
+    console.log("Animating")
     // game = window.requestAnimationFrame(animationLoop, canvas)
     frameCount++;
     
@@ -282,13 +285,14 @@ const animationLoop = () => {
                 winOrLose = 'You Win!'
                 winOrLoseElem.innerHTML = winOrLose
                 canvas.style.display = 'none'
+                clearInterval(int)
             } else if(scoreValue === -2){
                 winOrLose = 'Game Over'
                 winOrLoseElem.innerHTML = winOrLose
                 canvas.style.display = 'none'
+                clearInterval(int)
             }
         }
-
         itemsArr[i].draw();
     }
     bin.draw();
@@ -299,14 +303,20 @@ const animationLoop = () => {
 
 let soundtrack = new Audio ('./media/Game Soundtrack.mp3')
 
+function startGame(){
+    canvas.style.display = 'block'
+    winOrLoseElem.innerHTML = ''
+    scoreDisplay.innerHTML = '0'
+    scoreValue = 0
+    // animationLoop()
+    int = setInterval(animationLoop, 18);
+    // int = setInterval(addItems, 1000)
+    // console.log("Started")
+    soundtrack.play();
+}
+
 window.onload = () => {
     document.querySelector("#start").addEventListener('click', startGame)
-
-    function startGame(){
-        // animationLoop()
-        setInterval(animationLoop, 18);
-        // int = setInterval(addItems, 1000)
-        // console.log("Started")
-        soundtrack.play();
-    }
+    // ctx.fillStyle = 'white';
+    // ctx.fillRect(0,0,canvas.width,canvas.height)
 }
