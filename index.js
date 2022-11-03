@@ -303,15 +303,36 @@ const animationLoop = () => {
 }
 
 // let int;
-/*
+
 function instructionsButton(){
     if(canvas.getContext){
         ctx.fillStyle = 'white';
         ctx.fillRect(0,0,canvas.width,canvas.height)
+        ctx.fillStyle = 'black';
         ctx.font = '20px Verdana';
-        ctx.fillText('The goal of this game is to correctly sort through trash and recyclable items. Trash that cannot be recycled will grant you -2 points while trash that can be recycled will grant you +1 point. The game is won when you score 5 points. The game ends when you score -10 points.', 0, 0)
+        ctx.fillText('The goal of this game is to correctly sort through trash and recyclable items.', 150, 200)
     }
-} */
+    if(canvas.getContext){
+        ctx.fillText('Trash that cannot be recycled will grant you -2 points while trash that can be', 150, 230)
+    }
+    if(canvas.getContext){
+        ctx.fillText('recycled will grant you +1 point. The game is won when you score 5 points.', 150, 260)
+    }
+    if(canvas.getContext){
+        ctx.fillText('The game ends when you score -10 points. Good luck!', 150, 290)
+    }
+} 
+instructionsButton(); 
+
+/*
+let instructBttn = document.querySelector('#instructions')
+let instructText = document.querySelector('#instructionText')
+instructBttn.addEventListener('click', () => {
+    ctx.fillStyle = 'white',
+    ctx.fillRect(0, 0, canvas.width, canvas.width)
+    instructText.style.display = 'block';
+});
+*/
 
 let soundtrack = new Audio ('./media/Game Soundtrack.mp3')
 
@@ -326,17 +347,20 @@ function startGame(){
     // console.log("Started")
     soundtrack.play();
     soundtrack.volume = 0.25;
+    frameCount = 0;
+    canvas.style.display = 'inline';
+    bin.draw();
 }
 
 let openingImg = new Image()
 openingImg.src = './media/landing bg.png'
 
 window.onload = () => {
-    // document.querySelector('#instructions').addEventListener('click', instructionsButton);
+    document.querySelector('#instructions').addEventListener('click', instructionsButton);
 
     document.querySelector('#start').addEventListener('click', startGame);
 
-    // add queryselector for resources function
+    // document.querySelector('#resources').addEventListener('click', resourcesButton);
 
     ctx.fillStyle = 'white';
     ctx.fillRect(0,0,canvas.width,canvas.height)
