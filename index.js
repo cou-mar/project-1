@@ -26,20 +26,26 @@ class Player {
         // this.draw()
     }
     moveLeft(){
-        if (this.vx <= -3){
-            this.vx = -3
+        if (this.vx <= -4){
+            this.vx = -4
         }
-        this.vx -= 0.8;
+        if (this.vx > 0){
+            this.vx = -2
+        }
+        this.vx -= 2;
         // if (this.x == 0){
         //     this.x = 100
         //     this.vx = 0;
         // }
     }
     moveRight(){
-        if (this.vx >= 3) {
-            this.vx = 3
+        if (this.vx >= 4) {
+            this.vx = 4
         }
-        this.vx += 0.8;
+        if (this.vx < 0) {
+            this.vx = 2
+        }
+        this.vx += 2;
         // if (this.x > canvas.width - binMaxWidth){
         //     this.vx = -(this.vx);
         // }
@@ -188,7 +194,7 @@ class FallingItems {
         this.x = Math.random() * 1051;
         this.y = 0;
         this.velocity = Math.ceil(Math.random() * 3);
-        this.width = 100;
+        this.width =100;
         this.height = 90;
         this.allItems = trashArr[Math.floor(Math.random() * trashArr.length)]
         this.recyclable = this.allItems.recyclable
@@ -202,8 +208,8 @@ class FallingItems {
     }
     collisionCheck(obstacle) {
         if (
-          this.x < obstacle.x + obstacle.width &&
-          this.x + this.width > obstacle.x &&
+          this.x < obstacle.x + (obstacle.width - 50) &&
+          this.x + this.width > (obstacle.x + 50) &&
           this.y < obstacle.y + obstacle.height &&
           this.height + this.y > obstacle.y
         ) {
@@ -298,12 +304,19 @@ const animationLoop = () => {
                 canvas.style.display = 'none'
                 clearInterval(int)
                 winner.play();
+                instructionsButton();
+                bin.x = 480
+                bin.vx = 0
             } else if(scoreValue <= -10){
                 winOrLose = 'Game Over'
                 winOrLoseElem.innerHTML = winOrLose
                 canvas.style.display = 'none'
                 clearInterval(int)
                 loser.play();
+                instructionsButton();
+                bin.x = 480
+                bin.vx = 0
+
             }
         }
         itemsArr[i].draw();
@@ -315,6 +328,9 @@ const animationLoop = () => {
 // let int;
 
 function instructionsButton(){
+    clearInterval(int)
+    bin.x = 480
+    bin.vx = 0
     if(canvas.getContext){
         ctx.fillStyle = 'white';
         ctx.fillRect(0,0,canvas.width,canvas.height)
