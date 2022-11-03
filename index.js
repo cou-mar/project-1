@@ -251,6 +251,11 @@ window.addEventListener("keydown", function(event){
 let frameCount = 0;
 let int;
 
+let correctCollect = new Audio ('./media/sfx whoosh.mp3')
+let splat = new Audio ('./media/sfx splat.mp3')
+let winner = new Audio ('./media/sfx win.mp3')
+let loser = new Audio ('./media/sfx lose.mp3')
+
 const animationLoop = () => {
     // console.log("Animating")
     // game = window.requestAnimationFrame(animationLoop, canvas)
@@ -274,9 +279,12 @@ const animationLoop = () => {
                 scoreValue += 1;
                 scoreDisplay.innerHTML = scoreValue
                 console.log('check')
+                correctCollect.play();
+                // correctCollect.playbackRate=1;
             }   else {
                 scoreValue -= 2;
                 scoreDisplay.innerHTML = scoreValue
+                splat.play();
             }
 
             // remove item upon contact with bin
@@ -289,11 +297,13 @@ const animationLoop = () => {
                 winOrLoseElem.innerHTML = winOrLose
                 canvas.style.display = 'none'
                 clearInterval(int)
+                winner.play();
             } else if(scoreValue <= -10){
                 winOrLose = 'Game Over'
                 winOrLoseElem.innerHTML = winOrLose
                 canvas.style.display = 'none'
                 clearInterval(int)
+                loser.play();
             }
         }
         itemsArr[i].draw();
