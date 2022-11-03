@@ -26,20 +26,20 @@ class Player {
         // this.draw()
     }
     moveLeft(){
-        if (this.vx <= -4){
-            this.vx = -4
+        if (this.vx <= -3){
+            this.vx = -3
         }
-        this.vx -= 1;
+        this.vx -= 0.8;
         // if (this.x == 0){
         //     this.x = 100
         //     this.vx = 0;
         // }
     }
     moveRight(){
-        if (this.vx >= 4) {
-            this.vx = 4
+        if (this.vx >= 3) {
+            this.vx = 3
         }
-        this.vx += 1;
+        this.vx += 0.8;
         // if (this.x > canvas.width - binMaxWidth){
         //     this.vx = -(this.vx);
         // }
@@ -208,7 +208,7 @@ class FallingItems {
           this.height + this.y > obstacle.y
         ) {
           // Collision detected!
-          console.log("detected!");
+        //   console.log("detected!");
           return true;
         } else {
           // No collision
@@ -252,7 +252,7 @@ let frameCount = 0;
 let int;
 
 const animationLoop = () => {
-    console.log("Animating")
+    // console.log("Animating")
     // game = window.requestAnimationFrame(animationLoop, canvas)
     frameCount++;
     
@@ -269,6 +269,7 @@ const animationLoop = () => {
         
         if(itemsArr[i].collisionCheck(bin)) { 
             
+            // assigning point values
             if(itemsArr[i].recyclable){
                 scoreValue += 1;
                 scoreDisplay.innerHTML = scoreValue
@@ -278,15 +279,17 @@ const animationLoop = () => {
                 scoreDisplay.innerHTML = scoreValue
             }
 
+            // remove item upon contact with bin
             itemsArr.splice(i, 1)
             i--
 
-            if(scoreValue === 1){
+            // win or lose display
+            if(scoreValue >= 5){
                 winOrLose = 'You Win!'
                 winOrLoseElem.innerHTML = winOrLose
                 canvas.style.display = 'none'
                 clearInterval(int)
-            } else if(scoreValue === -2){
+            } else if(scoreValue <= -10){
                 winOrLose = 'Game Over'
                 winOrLoseElem.innerHTML = winOrLose
                 canvas.style.display = 'none'
@@ -300,11 +303,20 @@ const animationLoop = () => {
 }
 
 // let int;
+/*
+function instructionsButton(){
+    if(canvas.getContext){
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0,canvas.width,canvas.height)
+        ctx.font = '20px Verdana';
+        ctx.fillText('The goal of this game is to correctly sort through trash and recyclable items. Trash that cannot be recycled will grant you -2 points while trash that can be recycled will grant you +1 point. The game is won when you score 5 points. The game ends when you score -10 points.', 0, 0)
+    }
+} */
 
 let soundtrack = new Audio ('./media/Game Soundtrack.mp3')
 
 function startGame(){
-    canvas.style.display = 'block'
+    // canvas.style.display = 'block'
     winOrLoseElem.innerHTML = ''
     scoreDisplay.innerHTML = '0'
     scoreValue = 0
@@ -313,10 +325,20 @@ function startGame(){
     // int = setInterval(addItems, 1000)
     // console.log("Started")
     soundtrack.play();
+    soundtrack.volume = 0.25;
 }
 
+let openingImg = new Image()
+openingImg.src = './media/landing bg.png'
+
 window.onload = () => {
-    document.querySelector("#start").addEventListener('click', startGame)
-    // ctx.fillStyle = 'white';
-    // ctx.fillRect(0,0,canvas.width,canvas.height)
+    // document.querySelector('#instructions').addEventListener('click', instructionsButton);
+
+    document.querySelector('#start').addEventListener('click', startGame);
+
+    // add queryselector for resources function
+
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0,0,canvas.width,canvas.height)
+    ctx.drawImage(openingImg, 0, 0, canvas.width, canvas.height)
 }

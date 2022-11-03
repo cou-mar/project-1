@@ -2,14 +2,37 @@ canvas {
     background-image: url("./media/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    ;
 }
 
 body {
     text-align: center;
 }
 
-body button {
+#buttons {
+    display: flex;
+    justify-content: center;
+    column-gap: 7rem;
+}
+
+#instructions {
+    font-size: 30px;
+    background-color: rgb(136, 211, 243);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#start {
+    font-size: 30px;
+    background-color: rgb(136, 211, 243);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#resources {
     font-size: 30px;
     background-color: rgb(136, 211, 243);
     color: white;
@@ -24,27 +47,6 @@ h1 {
     font-style: oblique;
     color: rgb(136, 211, 243);
 }
-
-/* #winner {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    color: rgb(1,113,187);
-    display: block;
-    font-size: 2rem;
-    text-shadow: 5px 5px 5px rgb(146, 157, 151);
-
-}
-
-#loser {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    color: rgb(1,113,187);
-    display: block;
-    font-size: 2rem;
-    text-shadow: 5px 5px 5px rgb(146, 157, 151);
-} */
 
 #winOrLoseId {
     font-size: 2rem;
