@@ -345,7 +345,10 @@ function instructionsButton(){
         ctx.fillText('recycled will grant you +1 point. The game is won when you score 5 points.', 150, 260)
     }
     if(canvas.getContext){
-        ctx.fillText('The game ends when you score -10 points. Good luck!', 150, 290)
+        ctx.fillText('The game ends when you score -10 points. Move the bin using the left & right', 150, 290)
+    }
+    if(canvas.getContext){
+        ctx.fillText('arrow keys. Good luck!', 150, 320)
     }
 } 
 instructionsButton(); 
